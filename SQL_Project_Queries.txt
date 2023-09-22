@@ -1,0 +1,61 @@
+Query #1. Which is the most popular track?
+SELECT 
+  t.Name, 
+  SUM(quantity) total_sales 
+FROM 
+  Track t 
+  JOIN InvoiceLine i ON t.trackid = i.TrackId 
+GROUP BY 
+  1 
+ORDER BY 
+  2 DESC
+LIMIT 5;
+
+
+Query #2. Which Album has the most unique customers?
+SELECT 
+  a.Title, 
+  COUNT(DISTINCT customerid) unique_cust 
+FROM 
+  invoice i 
+  JOIN invoiceline il ON i.InvoiceId = il.InvoiceId 
+  JOIN Track t ON il.TrackId = t.TrackId 
+  JOIN album a ON t.AlbumId = a.AlbumId 
+GROUP BY 
+  1 
+ORDER BY 
+  2 DESC 
+LIMIT 
+  5;
+
+
+Query #3. Which country has sold the most unique albums?
+SELECT 
+  i.BillingCountry, 
+  COUNT(DISTINCT a.albumid) total_unique_albums 
+FROM 
+  Invoice i 
+  JOIN InvoiceLine il ON i.InvoiceId = il.InvoiceId 
+  JOIN track t ON t.TrackId = il.TrackId 
+  JOIN album a ON a.AlbumId = t.AlbumId 
+GROUP BY 
+  1 
+ORDER BY 
+  2 DESC 
+LIMIT 
+  5;
+
+
+Query #4. Which Track shows up in the most Playlists?
+SELECT 
+  t.Name, 
+  COUNT(pt.PlaylistId) number_playlists 
+FROM 
+  Track t 
+  JOIN PlaylistTrack pt ON t.TrackId = pt.TrackId 
+GROUP BY 
+  1 
+ORDER BY 
+  2 DESC 
+LIMIT 
+  10;
